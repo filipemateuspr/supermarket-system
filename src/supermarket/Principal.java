@@ -12,11 +12,12 @@ public class Principal {
 	public static Produto produto3 = new Produto("Macarrão",5.60,10);
 	public static Produto produto4 = new Produto("Leite",4.20,10);
 	public static Produto produto5 = new Produto("Batata",5.30,10);
+	public static String versao="1.0.0";
 	public static int selecao=0, quantItens=0;
 	
 	public static void main(String[] args) {
 		System.out.print("\n---> Executando código de supermercado... (Por: Filipe Mateus)");	
-		System.out.print("\n==============|MENU PRINCIPAL|=============="+
+		System.out.print("\n=========|MENU PRINCIPAL (v"+versao+")|=========="+
 		                 "\n 1 -> Adicionar itens a venda"+
 				         "\n 2 -> Visualizar venda"+
 		                 "\n 3 -> Selecionar método de pagamento"+
