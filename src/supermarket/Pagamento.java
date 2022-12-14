@@ -18,7 +18,6 @@ public class Pagamento {
 	
 	//Métodos de "Pagamento"
 	public void selecionarTipoPagamento(int tpag) {
-		System.err.print("[Debug|MétodoChamado:selecionarTipoPagamento]\n");
 		if(tpag == 1) {
 			System.out.print("(!)Pagamento em Dinheiro selecionado.\n");
 			tipoPagamento=1;
@@ -29,11 +28,10 @@ public class Pagamento {
 			System.out.print("(!)Pagamento com Cartão selecionado.\n");
 			tipoPagamento=3;
 		}else {
-			System.err.print("\nEste número não corresponde a nenhum tipo de pagamento!\n");
+			System.out.print("\nEste número não corresponde a nenhum tipo de pagamento!\n");
 		}
 	}
 	public void realizarPagamento(int TipoPagamento) {
-		System.err.print("\n[Debug|MétodoChamado:realizarPagamento]");
 		String pMetodo;
 		switch(TipoPagamento) {
 		case 1:

@@ -30,15 +30,12 @@ public class Venda {
 	
 	//Métodos de "Venda"
 	public void adicionarItemVenda(String prod) {
-		System.err.print("[Debug|MétodoChamado:adicionarItemVenda]\n");
 		ListaVenda.add(prod);
 	}
 	public void visualizarVenda() {
-		System.err.print("\n[Debug|MétodoChamado:adicionarItemVenda]\n");
-		System.out.print("Itens à venda: "+ListaVenda);
+		System.out.print("Itens da venda: "+ListaVenda);
 	}
 	public void concluirVenda(int tpag) {
-		System.err.print("\n[Debug|MétodoChamado:concluirVenda]");
 		System.out.print("\nValor total: "+vlrTotal);
 		pagamento.realizarPagamento(tpag);
 	}
