@@ -3,23 +3,23 @@ package supermarket;
 import java.util.ArrayList;
 
 public class Venda {
-	private ArrayList<String> ListaVenda = new ArrayList<String>();
+	private ArrayList<Produto> listaVenda = new ArrayList<>();
 	private double vlrTotal;
 	Pagamento pagamento = new Pagamento();
 	
 	//Métodos construtores (vazio e completo)
 	public Venda() {}
-	public Venda(ArrayList<String> listaVenda, double vlrTotal) {
-		ListaVenda = listaVenda;
+	public Venda(ArrayList<Produto> listaVenda, Double vlrTotal) {
+		this.listaVenda = listaVenda;
 		this.vlrTotal = vlrTotal;
 	}	
 	
 	//Getters e Setters
-	public ArrayList<String> getListaVenda() {
-		return ListaVenda;
+	public ArrayList<Produto> getListaVenda() {
+		return listaVenda;
 	}
-	public void setListaVenda(ArrayList<String> listaVenda) {
-		ListaVenda = listaVenda;
+	public void setListaVenda(ArrayList<Produto> listaVenda) {
+		this.listaVenda = listaVenda;
 	}
 	public double getVlrTotal() {
 		return vlrTotal;
@@ -28,15 +28,19 @@ public class Venda {
 		this.vlrTotal = vlrTotal;
 	}
 	
-	//Métodos de "Venda"
-	public void adicionarItemVenda(String prod) {
-		ListaVenda.add(prod);
+	//Métodos da classe
+	public void adicionarItemVenda(Produto prod) {
+		listaVenda.add(prod);
 	}
 	public void visualizarVenda() {
-		System.out.print("Itens da venda: "+ListaVenda);
+		int aux=0;
+		for (Produto produto : listaVenda) {
+			System.out.println("[ID:"+(aux+1)+"] "+produto.getNome()+" (R$"+ produto.getPreco()+")");
+			aux++;
+		}
 	}
 	public void concluirVenda(int tpag) {
-		System.out.print("\nValor total: "+vlrTotal);
+		System.out.print("\nValor total: R$"+vlrTotal);
 		pagamento.realizarPagamento(tpag);
 	}
 }

@@ -16,37 +16,37 @@ public class Pagamento {
 		this.tipoPagamento = tipoPagamento;
 	}
 	
-	//Métodos de "Pagamento"
+	//Métodos da classe
 	public void selecionarTipoPagamento(int tpag) {
 		if(tpag == 1) {
-			System.out.print("(!)Pagamento em Dinheiro selecionado.\n");
+			System.out.print("(!) Pagamento em Dinheiro selecionado.\n");
 			tipoPagamento=1;
 		}else if(tpag == 2) {
-			System.out.print("(!)Pagamento com Cheque selecionado.\n");
+			System.out.print("(!) Pagamento com Cheque selecionado.\n");
 			tipoPagamento=2;
 		}else if(tpag == 3) {
-			System.out.print("(!)Pagamento com Cartão selecionado.\n");
+			System.out.print("(!) Pagamento com Cartão selecionado.\n");
 			tipoPagamento=3;
 		}else {
 			System.out.print("\nEste número não corresponde a nenhum tipo de pagamento!\n");
 		}
 	}
 	public void realizarPagamento(int TipoPagamento) {
-		String pMetodo;
+		String pgtMetodo;
 		switch(TipoPagamento) {
 		case 1:
-			pMetodo="Dinheiro";
+			pgtMetodo="Dinheiro";
 		break;
 		case 2:
-			pMetodo="Cheque";
+			pgtMetodo="Cheque";
 		break;
 		case 3:
-			pMetodo="Cartão";
+			pgtMetodo="Cartão";
 		break;
 		default:
-			pMetodo="Não definido";
+			pgtMetodo="Não definido";
 		break;
 		}
-		System.out.print("\nO pagamento foi realizado usando "+pMetodo+".");
+		System.out.print("\nO pagamento foi realizado usando "+pgtMetodo+".");
 	}
 }
