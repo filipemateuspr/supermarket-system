@@ -2,11 +2,11 @@ package supermarket;
 
 public class Produto {
 	private String nome;
-	private Double preco;
-	private Integer quantidadeEstoque;
+	private double preco;
+	private int quantidadeEstoque;
 	
 	//Método construtor completo
-	public Produto(String nome, Double preco, Integer quantidadeEstoque) {
+	public Produto(String nome, double preco, int quantidadeEstoque) {
 		this.nome = nome;
 		this.preco = preco;
 		this.quantidadeEstoque = quantidadeEstoque;
@@ -21,7 +21,7 @@ public class Produto {
 	public double getPreco() {
 		return preco;
 	}
-	public void setPreco(Double preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 	public int getQuantidadeEstoque() {
@@ -32,8 +32,8 @@ public class Produto {
 	}
 	
 	//Métodos da classe
-	public boolean verificarEstoque(int prod) {
-		if(prod != 0) {
+	public boolean verificarEstoque(Produto prod) {
+		if(prod.getQuantidadeEstoque() != 0) {
 			return true;
 		} else {
 			return false;

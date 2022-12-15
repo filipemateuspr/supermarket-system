@@ -28,7 +28,7 @@ public class Pagamento {
 			System.out.print("(!) Pagamento com Cartão selecionado.\n");
 			tipoPagamento=3;
 		}else {
-			System.out.print("\nEste número não corresponde a nenhum tipo de pagamento!\n");
+			System.out.print("Ocorreu um erro: Este número não corresponde a nenhum tipo de pagamento!\n");
 		}
 	}
 	public void realizarPagamento(int TipoPagamento) {

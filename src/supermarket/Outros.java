@@ -2,9 +2,9 @@ package supermarket;
 
 import java.io.IOException;
 
-public class OutrosCMD {
+public class Outros {
 	@SuppressWarnings("deprecation")
-	public void limparTela(){
+	public void limpe(){
 	    try {
 	        if (System.getProperty("os.name").contains("Windows"))
 	            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -12,7 +12,7 @@ public class OutrosCMD {
 	            Runtime.getRuntime().exec("clear");
 	    } catch (IOException | InterruptedException ex) {}
 	}
-	public void aguardar(int ms)
+	public void aguarde(int ms)
 	{
 	    try
 	    {

@@ -9,12 +9,15 @@ public class Venda {
 	
 	//Métodos construtores (vazio e completo)
 	public Venda() {}
-	public Venda(ArrayList<Produto> listaVenda, Double vlrTotal) {
+	public Venda(ArrayList<Produto> listaVenda, double vlrTotal) {
 		this.listaVenda = listaVenda;
 		this.vlrTotal = vlrTotal;
 	}	
 	
 	//Getters e Setters
+	public void adicionarItemVenda(Produto prod) {
+		listaVenda.add(prod);
+	}
 	public ArrayList<Produto> getListaVenda() {
 		return listaVenda;
 	}
@@ -29,11 +32,8 @@ public class Venda {
 	}
 	
 	//Métodos da classe
-	public void adicionarItemVenda(Produto prod) {
-		listaVenda.add(prod);
-	}
 	public void visualizarVenda() {
-		int aux=0;
+		int aux = 0;
 		for (Produto produto : listaVenda) {
 			System.out.println("[ID:"+(aux+1)+"] "+produto.getNome()+" (R$"+ produto.getPreco()+")");
 			aux++;
