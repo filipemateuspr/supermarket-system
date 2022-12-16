@@ -31,22 +31,22 @@ public class Pagamento {
 			System.out.print("Ocorreu um erro: Este número não corresponde a nenhum tipo de pagamento!\n");
 		}
 	}
-	public void realizarPagamento(int TipoPagamento) {
-		String pgtMetodo;
-		switch(TipoPagamento) {
+	public void realizarPagamento(int tipoPagamento) {
+		String metodoPagamento;
+		switch(tipoPagamento) {
 		case 1:
-			pgtMetodo="Dinheiro";
+			metodoPagamento="Dinheiro";
 		break;
 		case 2:
-			pgtMetodo="Cheque";
+			metodoPagamento="Cheque";
 		break;
 		case 3:
-			pgtMetodo="Cartão";
+			metodoPagamento="Cartão";
 		break;
 		default:
-			pgtMetodo="Não definido";
+			metodoPagamento="Não definido";
 		break;
 		}
-		System.out.print("\nO pagamento foi realizado usando "+pgtMetodo+".");
+		System.out.print("\nO pagamento foi realizado usando "+metodoPagamento+".");
 	}
 }

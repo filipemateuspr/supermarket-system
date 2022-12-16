@@ -15,9 +15,6 @@ public class Venda {
 	}	
 	
 	//Getters e Setters
-	public void adicionarItemVenda(Produto prod) {
-		listaVenda.add(prod);
-	}
 	public ArrayList<Produto> getListaVenda() {
 		return listaVenda;
 	}
@@ -32,6 +29,9 @@ public class Venda {
 	}
 	
 	//Métodos da classe
+	public void adicionarItemVenda(Produto prod) {
+		listaVenda.add(prod);
+	}
 	public void visualizarVenda() {
 		int aux = 0;
 		for (Produto produto : listaVenda) {

@@ -17,7 +17,7 @@ public class Principal {
 	public static int selecao=0, quantItens=0;
 	
 	public static void main(String[] args) {
-		System.out.print("---> Executando código de supermercado... (Por: Filipe Mateus (14/12/22))");
+		System.out.print("---> Executando código de supermercado... (Por: Filipe Mateus (15/12/22))");
 		outros.aguarde(3000);
 		menuInicial();
 	}
@@ -52,7 +52,7 @@ public class Principal {
 		default:
 			System.out.print("Ocorreu um erro: O número inserido não corresponde a nenhuma opção!"+
                     		 "\n\n(!) Retornando ao menu inicial em 3 segundos...");
-			outros.limpe();
+			outros.aguarde(3000);
 			menuInicial();
 			break;
 		}
