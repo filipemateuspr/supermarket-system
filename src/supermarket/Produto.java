@@ -1,39 +1,67 @@
 package supermarket;
 
+import java.util.ArrayList;
+
 public class Produto {
-	private String nome;
-	private double preco;
-	private int quantidadeEstoque;
 	
-	//Método construtor completo
-	public Produto(String nome, double preco, int quantidadeEstoque) {
-		this.nome = nome;
-		this.preco = preco;
-		this.quantidadeEstoque = quantidadeEstoque;
+	private ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+	private String nomeProduto;
+	private double precoProduto;
+	private int idProduto, quantEstoque;
+	
+	//Métodos construtores
+	public Produto() {}
+	public Produto(int idProduto, String nomeProduto, double precoProduto,  int quantEstoque) {
+		this.idProduto = idProduto;
+		this.nomeProduto = nomeProduto;
+		this.precoProduto = precoProduto;
+		this.quantEstoque = quantEstoque;
 	}
+
 	//Getters e Setters
-	public String getNome() {
-		return nome;
+	public ArrayList<Produto> getListaProdutos() {
+		return listaProdutos;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setListaProdutos(ArrayList<Produto> listaProdutos) {
+		this.listaProdutos = listaProdutos;
 	}
-	public double getPreco() {
-		return preco;
+	public String getNomeProduto() {
+		return nomeProduto;
 	}
-	public void setPreco(double preco) {
-		this.preco = preco;
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
 	}
-	public int getQuantidadeEstoque() {
-		return quantidadeEstoque;
+	public double getPrecoProduto() {
+		return precoProduto;
 	}
-	public void setQuantidadeEstoque(int quantidadeEstoque) {
-		this.quantidadeEstoque = quantidadeEstoque;
+	public void setPrecoProduto(double precoProduto) {
+		this.precoProduto = precoProduto;
+	}
+	public int getIdProduto() {
+		return idProduto;
+	}
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
+	}
+	public int getQuantEstoque() {
+		return quantEstoque;
+	}
+	public void setQuantEstoque(int quantEstoque) {
+		this.quantEstoque = quantEstoque;
 	}
 	
 	//Métodos da classe
+	public void adicionarProduto(Produto prod) {
+		listaProdutos.add(prod);
+	}
+	public void visualizarProdutos() {
+		System.out.print("|ID|PRODUTO|PREÇO|QUANT. EM ESTOQUE|DISPONÍVEL|");
+		for (Produto produto : listaProdutos) {
+			System.out.print("\n|"+produto.getIdProduto()+"|   "+produto.getNomeProduto()+"   (R$"+produto.getPrecoProduto()+" | "+produto.getQuantEstoque()+" | "+produto.verificarEstoque(produto)+")");
+		}
+	}
 	public boolean verificarEstoque(Produto prod) {
-		if(prod.getQuantidadeEstoque() != 0) {
+		if(prod.getQuantEstoque()!=0) {
 			return true;
 		} else {
 			return false;

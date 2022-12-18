@@ -3,11 +3,12 @@ package supermarket;
 import java.util.ArrayList;
 
 public class Venda {
+	
 	private ArrayList<Produto> listaVenda = new ArrayList<>();
 	private double vlrTotal;
-	Pagamento pagamento = new Pagamento();
+	private Pagamento pagamento = new Pagamento();
 	
-	//Métodos construtores (vazio e completo)
+	//Métodos construtores
 	public Venda() {}
 	public Venda(ArrayList<Produto> listaVenda, double vlrTotal) {
 		this.listaVenda = listaVenda;
@@ -35,7 +36,7 @@ public class Venda {
 	public void visualizarVenda() {
 		int aux = 0;
 		for (Produto produto : listaVenda) {
-			System.out.println("[ID:"+(aux+1)+"] "+produto.getNome()+" (R$"+ produto.getPreco()+")");
+			System.out.println("[ID:"+(aux+1)+"] "+produto.getNomeProduto()+" (R$"+ produto.getPrecoProduto()+")");
 			aux++;
 		}
 	}

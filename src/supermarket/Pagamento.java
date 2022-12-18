@@ -1,13 +1,15 @@
 package supermarket;
 
 public class Pagamento {
+	
 	private int tipoPagamento;
 
-	//Métodos construtor (vazio e completo)
+	//Métodos construtores
 	public Pagamento() {}
 	public Pagamento(int tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
 	}
+	
 	//Getters e Setters
 	public int getTipoPagamento() {
 		return tipoPagamento;
