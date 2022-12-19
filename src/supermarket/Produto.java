@@ -67,4 +67,34 @@ public class Produto {
 			return false;
 		}
 	}
+	public String retornarNomeProduto(int idProduto) {
+		String nomeProduto="";
+		for (Produto produto : listaProdutos) {
+			if(produto.getIdProduto()==idProduto) {
+				nomeProduto=produto.getNomeProduto();
+			}
+		}
+		return nomeProduto;
+	}
+	public double retornarPrecoProduto(int idProduto) {
+		double precoProduto=0;
+		for (Produto produto : listaProdutos) {
+			if(produto.getIdProduto()==idProduto) {
+				precoProduto=produto.getPrecoProduto();
+			}
+		}
+		return precoProduto;
+	}
+	public int retornarQuantEstoque(int idProduto) {
+		int quantEstoque=0;
+		for (Produto produto : listaProdutos) {
+			if(produto.getIdProduto()==idProduto) {
+				quantEstoque=produto.getQuantEstoque();
+			}
+		}
+		return quantEstoque;
+	}
+	public void atualizarEstoque(int idProduto, String nomeProduto, double precoProduto, int quantEstoque) {
+		listaProdutos.set(idProduto-1, new Produto(idProduto, nomeProduto, precoProduto, quantEstoque-1));
+	}
 }

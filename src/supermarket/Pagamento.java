@@ -49,6 +49,6 @@ public class Pagamento {
 			metodoPagamento="Não definido";
 		break;
 		}
-		System.out.print("\nO pagamento foi realizado usando "+metodoPagamento+".");
+		System.out.print("\n(!) O pagamento foi realizado usando "+metodoPagamento+".");
 	}
 }

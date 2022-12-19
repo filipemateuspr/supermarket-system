@@ -30,6 +30,26 @@ public class Venda {
 	}
 	
 	//Métodos da classe
+	public void adicionarItemVenda(int idProduto, String nomeProduto, double precoProduto) {
+		Produto prod = new Produto();
+		prod.setIdProduto(idProduto);
+		prod.setNomeProduto(nomeProduto);
+		prod.setPrecoProduto(precoProduto);
+		listaVenda.add(prod);
+	}
+	public void visualizarVenda() {
+		int idProduto=0;
+		for (Produto produto : listaVenda) {
+			System.out.println("[ID:"+(idProduto+1)+"] "+produto.getNomeProduto()+" (R$"+produto.getPrecoProduto()+")");
+			idProduto++;
+		}
+	}
+	public void concluirVenda(int tpag) {
+		System.out.print("\nValor total: R$"+vlrTotal);
+		pagamento.realizarPagamento(tpag);
+	}
+	
+	/*---Métodos não usados (serão removidos)---
 	public void adicionarItemVenda(Produto prod) {
 		listaVenda.add(prod);
 	}
@@ -39,9 +59,5 @@ public class Venda {
 			System.out.println("[ID:"+(aux+1)+"] "+produto.getNomeProduto()+" (R$"+ produto.getPrecoProduto()+")");
 			aux++;
 		}
-	}
-	public void concluirVenda(int tpag) {
-		System.out.print("\nValor total: R$"+vlrTotal);
-		pagamento.realizarPagamento(tpag);
-	}
+	}*/
 }

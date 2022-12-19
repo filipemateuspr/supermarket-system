@@ -4,29 +4,25 @@ import java.util.Scanner;
 
 public class Principal {
 	
-	public static Scanner leia = new Scanner(System.in);
-	public static Outros outros = new Outros();
-	public static Venda venda = new Venda();
-	public static Pagamento pagamento = new Pagamento();
-	public static Produto produto = new Produto(0, null, 0, 0);
-	public static Produto produto1 = new Produto(1,"Arroz",6.50,5);
-	public static Produto produto2 = new Produto(2,"Feijão",7.50,5);
-	public static Produto produto3 = new Produto(3,"Macarrão",5.60,5);
-	public static Produto produto4 = new Produto(4,"Leite",4.20,5);
-	public static Produto produto5 = new Produto(5,"Batata",5.30,5);
-	public static String versao="1.2.1";
+	public static boolean haProdutos=false, predefCarregado=false;
 	public static int idProduto=0, quantItens=0;
-	public static boolean haProdutos=false;
-	
+	public static String versao="1.2.5";
+	public static Scanner leia = new Scanner(System.in);
+	public static Pagamento pagamento = new Pagamento();
+	public static Produto produto = new Produto();
+	public static Venda venda = new Venda();
+	public static Outros outros = new Outros();
+
 	public static void main(String[] args) {
-		System.out.print("---> Executando código de supermercado... (Por: Filipe Mateus (18/12/22))");
+		System.out.print("---> Executando código de supermercado... (Por: Filipe Mateus (19/12/22))");
 		outros.aguarde(3000);
 		menuInicial();
 	}
+	
 	public static void menuInicial() {
 		int entrada;
 		outros.limpe();
-		System.out.print("\n===============|MENU INICIAL (v"+versao+")|==============="+
+		System.out.print("\n============|GERENTE DE VENDAS (v"+versao+")|============="+
 		                 "\n Opções disponíveis:"+
                 		 "\n 1 -> Adicionar itens a venda"+
                 		 "\n 2 -> Visualizar venda"+
@@ -36,27 +32,21 @@ public class Principal {
                 		 "\n====================================================="+
 				 		 "\n-> Digite o número referente a opção desejada: ");
 		entrada=leia.nextInt();
-
 		switch(entrada) {
 		case 1:
-			outros.limpe();
-			adicionarItensVendaMenu();
+			submenuAdicionarItemVenda();
 			break;
 		case 2:
-			outros.limpe();
-			visualizarVendaMenu();
+			submenuVisualizarVenda();
 			break;
 		case 3:
-			outros.limpe();
-			selecionarMetodoPagamentoMenu();
+			submenuSelecionarMetodoPagamento();
 			break;
 		case 4:
-			outros.limpe();
-			concluirVendaMenu();
+			submenuConcluirVenda();
 			break;
 		case 5:
-			outros.limpe();
-			gerenteProdutosMenu();
+			menuGerenteProdutos();
 			break;
 		default:
 			System.out.print("Ocorreu um erro: O número inserido não corresponde a nenhuma opção!"+
@@ -66,94 +56,80 @@ public class Principal {
 			break;
 		}
 	}
-	public static void gerenteProdutosMenu() {
+	
+	public static void menuGerenteProdutos() {
 		int entrada;
+		outros.limpe();
 		System.out.print("\n==========|GERENTE DE PRODUTOS (v"+versao+")|============="+
                 	     "\n Opções disponíveis:"+
                 	     "\n 1 -> Adicionar novo produto"+
                 	     "\n 2 -> Visualizar lista de produtos"+
-                	     "\n 3 -> Volta ao menu inicial"+
+                	     "\n 3 -> Carregar pré-definição de produtos"+
+                	     "\n 4 -> Volta ao menu inicial"+
                 	     "\n====================================================="+
 						 "\n-> Digite o número referente a opção desejada: ");
 		entrada=leia.nextInt();
-		
 		switch(entrada) {
 		case 1:
-			outros.limpe();
-			adicionarNovoProduto();
+			submenuAdicionarNovoProduto();
 			break;
 		case 2:
-			outros.limpe();
-			visualizarProdutos();
+			submenuVisualizarProdutos();
 			break;
 		case 3:
-			outros.limpe();
+			submenuCarregarPredefProdutos();
+			break;
+		case 4:;
 			menuInicial();
 			break;
 		default:
 			System.out.print("Ocorreu um erro: O número inserido não corresponde a nenhuma opção!"+
            		             "\n\n(!) Retornando ao menu de gerenciamento em 3 segundos...");
 			outros.aguarde(3000);
-			gerenteProdutosMenu();
+			menuGerenteProdutos();
 			break;
 		}
 	}
-	public static void adicionarItensVendaMenu() {
-		int entrada;
-		System.out.print("==================|ADICIONAR ITEM A VENDA|==================="+
-				         "\n| ID |  PRODUTO  | PREÇO | QUANT. EM ESTOQUE |  DISPONÍVEL  |"+
-	                     "\n| 1     "+produto1.getNomeProduto()+"      R$"+produto1.getPrecoProduto()+"          "+produto1.getQuantEstoque()+"                "+produto1.verificarEstoque(produto1)+
-	                     "\n| 2     "+produto2.getNomeProduto()+"     R$"+produto2.getPrecoProduto()+"          "+produto2.getQuantEstoque()+"                "+produto2.verificarEstoque(produto2)+
-	                     "\n| 3     "+produto3.getNomeProduto()+"   R$"+produto3.getPrecoProduto()+"          "+produto3.getQuantEstoque()+"                "+produto3.verificarEstoque(produto3)+
-	                     "\n| 4     "+produto4.getNomeProduto()+"      R$"+produto4.getPrecoProduto()+"          "+produto4.getQuantEstoque()+"                "+produto4.verificarEstoque(produto4)+
-	                     "\n| 5     "+produto5.getNomeProduto()+"     R$"+produto5.getPrecoProduto()+"          "+produto5.getQuantEstoque()+"                "+produto5.verificarEstoque(produto5)+
-		                 "\nDigite o número correspondente ao item desejado: ");
-		entrada=leia.nextInt();
-		if(entrada==1&&produto1.getQuantEstoque()>0) {
-			venda.adicionarItemVenda(produto1);
-			produto1.setQuantEstoque(produto1.getQuantEstoque()-1);
-			venda.setVlrTotal(venda.getVlrTotal()+produto1.getPrecoProduto());
-			quantItens++;
-			menuInicial();
-		}else if(entrada==2&&produto2.getQuantEstoque()>0){
-			venda.adicionarItemVenda(produto2);
-			produto2.setQuantEstoque(produto2.getQuantEstoque()-1);
-			venda.setVlrTotal(venda.getVlrTotal()+produto2.getPrecoProduto());
-			quantItens++;
-			menuInicial();
-		}else if(entrada==3&&produto3.getQuantEstoque()>0) {
-			venda.adicionarItemVenda(produto3);
-			produto3.setQuantEstoque(produto3.getQuantEstoque()-1);
-			venda.setVlrTotal(venda.getVlrTotal()+produto3.getPrecoProduto());
-			quantItens++;
-			menuInicial();
-		}else if(entrada==4&&produto4.getQuantEstoque()>0) {
-			venda.adicionarItemVenda(produto4);
-			produto4.setQuantEstoque(produto4.getQuantEstoque()-1);
-			venda.setVlrTotal(venda.getVlrTotal()+produto4.getPrecoProduto());
-			quantItens++;
-			menuInicial();
-		}else if(entrada==5&&produto5.getQuantEstoque()>0) {
-			venda.adicionarItemVenda(produto5);
-			produto5.setQuantEstoque(produto5.getQuantEstoque()-1);
-			venda.setVlrTotal(venda.getVlrTotal()+produto5.getPrecoProduto());
-			quantItens++;
-			menuInicial();
+	
+	public static void submenuAdicionarItemVenda() {
+		String tecla="R"; int entrada;
+		outros.limpe();
+		if(haProdutos==true) {
+			System.out.print("\n============|ADICIONAR ITEM A VENDA|=================\n");
+			produto.visualizarProdutos();
+			System.out.print("\nQual produto você deseja adicionar a sua lista de venda? [Insira o ID]: ");
+			entrada=leia.nextInt();
+			if(entrada-1<produto.getListaProdutos().size()&&produto.retornarQuantEstoque(entrada)>0) {
+				venda.adicionarItemVenda(entrada,produto.retornarNomeProduto(entrada),produto.retornarPrecoProduto(entrada));
+				produto.atualizarEstoque(entrada,produto.retornarNomeProduto(entrada),produto.retornarPrecoProduto(entrada),produto.retornarQuantEstoque(entrada));
+				venda.setVlrTotal(venda.getVlrTotal()+produto.retornarPrecoProduto(entrada));
+				System.out.print("Produto \""+produto.retornarNomeProduto(entrada)+"\" adicionado a sua lista de venda!");
+				quantItens++;
+				System.out.print("\n(!) Digite ["+tecla+"] para retornar ao menu inicial: ");
+				tecla=leia.next();
+				menuInicial();
+			}else {
+				System.out.print("Ocorreu um erro: Produto não encontrado ou indisponível!"+
+	                             "\n\n(!) Retornando ao menu inicial em 3 segundos...");
+				outros.aguarde(3000);
+				menuInicial();
+			}
 		}else {
-			System.out.print("Ocorreu um erro: Produto não encontrado ou indisponível!"+
-		                     "\n\n(!) Retornando ao menu inicial em 3 segundos...");
+			System.out.print("Ocorreu um erro: Não há nenhum produto disponível para compra!"+
+                    		 "\n\n(!) Retornando ao menu inicial em 3 segundos...");
 			outros.aguarde(3000);
 			menuInicial();
 		}
 	}
-	public static void visualizarVendaMenu() {
+	
+	public static void submenuVisualizarVenda() {
 		String tecla="R";
+		outros.limpe();
 		if(quantItens!=0) {
-			System.out.print("=====|VISUALIZANDO ITENS DA VENDA|=====\n");
+			System.out.print("\n===========|VISUALIZAR ITENS DA VENDA|===============\n");
 			venda.visualizarVenda();
 			System.out.print("Quantidade de itens: "+quantItens+
 						     "\nValor total: R$"+venda.getVlrTotal()+"\n");
-			outros.aguarde(3000);
 			System.out.print("(!) Digite ["+tecla+"] para retornar ao menu inicial: ");
 			tecla = leia.next();
 			menuInicial();
@@ -164,16 +140,18 @@ public class Principal {
 			menuInicial();
 		}
 	}
-	public static void selecionarMetodoPagamentoMenu() {
+	
+	public static void submenuSelecionarMetodoPagamento() {
 		int entrada;
+		outros.limpe();
 		if(quantItens!=0&&pagamento.getTipoPagamento()==0) {
-			System.out.print("=====|SELECIONAR MÉTODO DE PAGAMENTO|====="+
+			System.out.print("\n==========|SELECIONAR MÉTODO DE PAGAMENTO|==========="+
 		                     "\nMétodos de pagamento disponíveis:"+
 					         "\n1 -> Dinheiro | 2 -> Cheque | 3 -> Cartão"+
 		                     "\nDigite o número correspondente ao método desejado: ");
 			entrada=leia.nextInt();
 			pagamento.selecionarTipoPagamento(entrada);
-			System.out.print("\n(!) Retornando ao menu inicial em 3 segundos...");
+			System.out.print("(!) Retornando ao menu inicial em 3 segundos...");
 			outros.aguarde(3000);
 			menuInicial();
 		}else {
@@ -183,11 +161,13 @@ public class Principal {
 			menuInicial();
 		}
 	}
-	public static void concluirVendaMenu() {
+	
+	public static void submenuConcluirVenda() {
+		outros.limpe();
 		if(quantItens!=0&&pagamento.getTipoPagamento()!=0) {
-			System.out.print("=====|CONCLUÍR VENDA|====="+
-		                     "\nDetalhes:"+
-					         "\nItens da venda: "+quantItens);
+			System.out.print("\n=================|CONCLUÍR VENDA|===================="+
+		                     "\n|===|DETALHES|===|"+
+					         "\nNúmero de itens: "+quantItens);
 			venda.concluirVenda(pagamento.getTipoPagamento());
 			System.out.print("\n\nAVISO: A execução do código terminou!");
 		}else {
@@ -197,8 +177,10 @@ public class Principal {
 			menuInicial();
 		}
 	}
-	public static void adicionarNovoProduto() {
-		String entrada;
+	
+	public static void submenuAdicionarNovoProduto() {
+		String entrada, tecla="R";
+		outros.limpe();
 		System.out.print("\n===============|ADICIONAR PRODUTOS|==================\n");
 		if(haProdutos==true) {
 			produto.visualizarProdutos();
@@ -243,16 +225,20 @@ public class Principal {
 			                 "\nNome do produto: "+nomeProduto+
 			                 "\nPreço do produto: R$"+precoProduto+
 			                 "\nQuantidade em estoque: "+quantEstoque);
-			System.out.print("\n\n(!) Retornando ao menu de gerenciamento de produtos em 3 segundos...");
-			outros.aguarde(3000);
-			gerenteProdutosMenu();
+			outros.aguarde(1500);
+			System.out.print("\n(!) Digite ["+tecla+"] para retornar ao menu de gerenciamento de produtos: ");
+			tecla=leia.next();
+			menuGerenteProdutos();
 		}else {
-			System.out.print("\n\n(!) Retornando ao menu de gerenciamento de produtos em 3 segundos...");
-			outros.aguarde(3000);
-			gerenteProdutosMenu();
+			System.out.print("(!) Digite ["+tecla+"] para retornar ao menu de gerenciamento de produtos: ");
+			tecla=leia.next();
+			menuGerenteProdutos();
 		}
 	}
-	public static void visualizarProdutos() {
+	
+	public static void submenuVisualizarProdutos() {
+		String tecla="R";
+		outros.limpe();
 		System.out.print("\n===============|VISUALIZAR PRODUTOS|=================\n");
 		if(haProdutos==true) {
 			produto.visualizarProdutos();
@@ -260,8 +246,68 @@ public class Principal {
 			System.out.print("          A lista de produtos está vazia!"+
 							 "\nAdicione produtos ao sistema para visualiza-los aqui.");
 		}
-		System.out.print("\n\n(!) Retornando ao menu de gerenciamento de produtos em 3 segundos...");
-		outros.aguarde(3000);
-		gerenteProdutosMenu();
+		System.out.print("\n(!) Digite ["+tecla+"] para retornar ao menu de gerenciamento de produtos: ");
+		tecla=leia.next();
+		menuGerenteProdutos();
+	}
+	
+	public static void submenuCarregarPredefProdutos() {
+		String tecla="R";
+		outros.limpe();
+		if(predefCarregado==false) {
+			System.out.print("\n==========|PRÉ-DEFINIÇÃO DE PRODUTOS|================\n");
+			System.out.print("Carregando pré-definição de produtos, por favor aguarde...");
+			outros.aguarde(2500);
+			
+			//Incremento de "idProduto" e instanciação de objetos de "Produto".
+			idProduto++;
+			Produto preset01 = new Produto(idProduto,"Arroz",6.50,15);
+			idProduto++;
+			Produto preset02 = new Produto(idProduto,"Feijão",7.50,15);
+			idProduto++;
+			Produto preset03 = new Produto(idProduto,"Macarrão",5.60,15);
+			idProduto++;
+			Produto preset04 = new Produto(idProduto,"Leite",4.20,15);
+			idProduto++;
+			Produto preset05 = new Produto(idProduto,"Batata",5.30,25);
+			idProduto++;
+			Produto preset06 = new Produto(idProduto,"Banana",4.99,25);
+			idProduto++;
+			Produto preset07 = new Produto(idProduto,"Suco de Uva",8.99,15);
+			idProduto++;
+			Produto preset08 = new Produto(idProduto,"Beterraba",4.96,25);
+			idProduto++;
+			Produto preset09 = new Produto(idProduto,"Peito de Frango",13.99,5);
+			idProduto++;
+			Produto preset10 = new Produto(idProduto,"Costela Bovina",27.49,5);
+			
+			//Adição das pré-definições ao ArrayList.
+			produto.adicionarProduto(preset01);
+			produto.adicionarProduto(preset02);
+			produto.adicionarProduto(preset03);
+			produto.adicionarProduto(preset04);
+			produto.adicionarProduto(preset05);
+			produto.adicionarProduto(preset06);
+			produto.adicionarProduto(preset07);
+			produto.adicionarProduto(preset08);
+			produto.adicionarProduto(preset09);
+			produto.adicionarProduto(preset10);
+			
+			//Alteração das variáveis lógicas para evitar duplicações de pré-definições.
+			haProdutos=true;
+			predefCarregado=true;
+			
+			//Retorno ao menu inicial.
+			System.out.print("\nPré-definição de produtos carregada!");
+			outros.aguarde(1500);
+			System.out.print("\n(!) Digite ["+tecla+"] para retornar ao menu de gerenciamento de produtos: ");
+			tecla=leia.next();
+			menuGerenteProdutos();
+		}else {
+			System.out.print("Ocorreu um erro: Você já carregou a pré-definição de produtos!"+
+                    		 "\n\n(!) Retornando ao menu de gerenciamento de produtos em 3 segundos...");
+			outros.aguarde(3000);
+			menuGerenteProdutos();
+		}
 	}
 }
