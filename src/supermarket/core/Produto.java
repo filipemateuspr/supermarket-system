@@ -4,26 +4,45 @@ import java.util.ArrayList;
 
 public class Produto {
 	
-	private ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
-	private String nomeProduto;
-	private double precoProduto;
-	private int idProduto, quantEstoque;
+	private volatile ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+	private volatile boolean predefCarregado = false, haProdutos = false, exibiuProdutos = false;
+	private volatile String nomeProduto;
+	private volatile double precoProduto;
+	private volatile int idProduto, quantEstoque;
 	
-	//Métodos construtores
+	//Construtores
 	public Produto() {}
-	public Produto(int idProduto, String nomeProduto, double precoProduto,  int quantEstoque) {
+	public Produto(int idProduto, String nomeProduto, double precoProduto, int quantEstoque) {
 		this.idProduto = idProduto;
 		this.nomeProduto = nomeProduto;
 		this.precoProduto = precoProduto;
 		this.quantEstoque = quantEstoque;
 	}
 
-	//Getters e Setters
+	//Getters e setters
 	public ArrayList<Produto> getListaProdutos() {
 		return listaProdutos;
 	}
 	public void setListaProdutos(ArrayList<Produto> listaProdutos) {
 		this.listaProdutos = listaProdutos;
+	}
+	public boolean isPredefCarregado() {
+		return predefCarregado;
+	}
+	public void setPredefCarregado(boolean predefCarregado) {
+		this.predefCarregado = predefCarregado;
+	}
+	public boolean haProdutos() {
+		return haProdutos;
+	}
+	public void setHaProdutos(boolean haProdutos) {
+		this.haProdutos = haProdutos;
+	}
+	public boolean exibiuProdutos() {
+		return exibiuProdutos;
+	}
+	public void setExibiuProdutos(boolean exibiuProdutos) {
+		this.exibiuProdutos = exibiuProdutos;
 	}
 	public String getNomeProduto() {
 		return nomeProduto;
@@ -50,16 +69,9 @@ public class Produto {
 		this.quantEstoque = quantEstoque;
 	}
 	
-	//Métodos da classe
+	//Funções da classes
 	public void adicionarProduto(Produto prod) {
 		listaProdutos.add(prod);
-	}
-	
-	public void visualizarProdutos() {
-		System.out.print("|ID|PRODUTO|PREÇO|QUANT. EM ESTOQUE|DISPONÍVEL|");
-		for (Produto produto : listaProdutos) {
-			System.out.print("\n|"+produto.getIdProduto()+"|   "+produto.getNomeProduto()+"   (R$"+produto.getPrecoProduto()+" | "+produto.getQuantEstoque()+" | "+produto.verificarEstoque(produto)+")");
-		}
 	}
 	
 	public boolean verificarEstoque(Produto prod) {

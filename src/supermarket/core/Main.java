@@ -13,11 +13,11 @@ public class Main {
 	public static Venda venda = new Venda();
 	public static External outros = new External();
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		System.out.print("---> Executando código de supermercado... (Por: Filipe Mateus (19/12/22))");
 		outros.aguarde(3000);
 		menuInicial();
-	}
+	}*/
 	
 	public static void menuInicial() {
 		int entrada;
@@ -96,7 +96,7 @@ public class Main {
 		outros.limpe();
 		if(haProdutos==true) {
 			System.out.print("\n============|ADICIONAR ITEM A VENDA|=================\n");
-			produto.visualizarProdutos();
+			//produto.visualizarProdutos();
 			System.out.print("\nQual produto você deseja adicionar a sua lista de venda? [Insira o ID]: ");
 			entrada=leia.nextInt();
 			if(entrada-1<produto.getListaProdutos().size()&&produto.retornarQuantEstoque(entrada)>0) {
@@ -183,7 +183,7 @@ public class Main {
 		outros.limpe();
 		System.out.print("\n===============|ADICIONAR PRODUTOS|==================\n");
 		if(haProdutos==true) {
-			produto.visualizarProdutos();
+			//produto.visualizarProdutos();
 			System.out.print("\nVocê deseja adicionar um novo item à lista de produtos? [Sim/Não]: ");
 			entrada=leia.next();
 		}else {
@@ -237,7 +237,12 @@ public class Main {
 	}
 	
 	public static void submenuVisualizarProdutos() {
-		String tecla="R";
+		
+		/*
+		 * FUNÇÃO MIGRADA PARA A INTERFACE
+		 */
+		
+		/*String tecla="R";
 		outros.limpe();
 		System.out.print("\n===============|VISUALIZAR PRODUTOS|=================\n");
 		if(haProdutos==true) {
@@ -248,11 +253,16 @@ public class Main {
 		}
 		System.out.print("\n(!) Digite ["+tecla+"] para retornar ao menu de gerenciamento de produtos: ");
 		tecla=leia.next();
-		menuGerenteProdutos();
+		menuGerenteProdutos();*/
 	}
 	
 	public static void submenuCarregarPredefProdutos() {
-		String tecla="R";
+		
+		/*
+		 * FUNÇÃO MIGRADA PARA A INTERFACE
+		 */
+		
+		/*String tecla="R";
 		outros.limpe();
 		if(predefCarregado==false) {
 			System.out.print("\n==========|PRÉ-DEFINIÇÃO DE PRODUTOS|================\n");
@@ -308,6 +318,6 @@ public class Main {
                     		 "\n\n(!) Retornando ao menu de gerenciamento de produtos em 3 segundos...");
 			outros.aguarde(3000);
 			menuGerenteProdutos();
-		}
+		}*/
 	}
 }
