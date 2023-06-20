@@ -9,7 +9,8 @@ public class ViewMain extends JFrame {
 	
 	private static final long serialVersionUID = 5306957481342113129L;
 	private static ViewGerenteProdutos gerenteProdutos = new ViewGerenteProdutos();
-	public static final String VERSAO = "v1.5.0", BUILD = " - DevTesting";
+	public static final String VERSAO = "v1.5.1", BUILD_INFOS = " - DevTesting (19/06/23)";
+	public static final String COMPARTILHADO_TITULO = "Supermarket Manager : ";
 	private static final String NOME_USUARIO = "Admin", SENHA_USUARIO = "Admin";
 	private JPanel cpPainelGeral;
 	private JTextField tfNomeUsuario;
@@ -31,7 +32,7 @@ public class ViewMain extends JFrame {
 	public ViewMain() {
 		setResizable(false);
 		setBackground(new Color(0, 0, 0));
-		setTitle("Supermarket Manager : Iniciar Sessão");
+		setTitle(COMPARTILHADO_TITULO + "Iniciar Sessão");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		cpPainelGeral = new JPanel();
@@ -128,7 +129,7 @@ public class ViewMain extends JFrame {
 		lblCopyright.setBounds(145, 320, 274, 19);
 		pFundoLogin.add(lblCopyright);
 		
-		JLabel lblVersao = new JLabel(VERSAO + BUILD + " (18/06/23)");
+		JLabel lblVersao = new JLabel(VERSAO + BUILD_INFOS);
 		lblVersao.setForeground(Color.WHITE);
 		lblVersao.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 8));
 		lblVersao.setFocusable(false);

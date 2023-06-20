@@ -9,16 +9,17 @@ import supermarket.core.*;
 public class ViewGerenteProdutos extends JFrame {
 	
 	private static final long serialVersionUID = 5306957481342113129L;
+	public static ViewMain vMain = new ViewMain();
 	public JPanel cpPainelGeral;
-	public static Main p = new Main();
 	public static Venda venda = new Venda();
 	public static Produto prod = new Produto();
 	public static ViewAdicionarProduto view = new ViewAdicionarProduto();
 	
+	@SuppressWarnings("static-access")
 	public ViewGerenteProdutos() {
 		setResizable(false);
 		setBackground(new Color(0, 0, 0));
-		setTitle("Supermarket Manager : Gerenciador de Produtos");
+		setTitle(vMain.COMPARTILHADO_TITULO + "Gerenciador de Produtos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 650);
 		cpPainelGeral = new JPanel();
@@ -168,7 +169,11 @@ public class ViewGerenteProdutos extends JFrame {
 		pPainelAcoesListaProdutos.add(btnAdicionarProduto);
 		btnAdicionarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				view.setVisible(true);
+				if(prod.getIdProduto() < 20) {
+					view.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Não é possível adicionar um novo produto.", "Lista de produtos cheia", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -211,25 +216,43 @@ public class ViewGerenteProdutos extends JFrame {
 		btnCarregarPreset.setBackground(new Color(66, 69, 73));
 		btnCarregarPreset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				carregarPredef();
+				if(prod.isPredefCarregado() == false) {
+					if(prod.getIdProduto()+10 < 20) {
+						carregarPredef();
+					} else {
+						JOptionPane.showMessageDialog(null, "Não foi possível carregar a pré-definição de produtos,\npois excederia o máximo suportado.", "Impossível continuar", JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Pré-definição de produtos já carregada!", "Impossível prosseguir", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
-		JButton btnLimparListaProdutos = new JButton("Limpar");
+		JButton btnLimparListaProdutos = new JButton("Limpar registros");
 		btnLimparListaProdutos.setFocusable(false);
 		btnLimparListaProdutos.setForeground(new Color(255, 255, 255));
 		btnLimparListaProdutos.setBackground(new Color(66, 69, 73));
 		btnLimparListaProdutos.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 12));
-		btnLimparListaProdutos.setBounds(314, 486, 84, 17);
+		btnLimparListaProdutos.setBounds(265, 486, 133, 17);
 		pFundoListaProdutos.add(btnLimparListaProdutos);
 		btnLimparListaProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tpIdProduto.setText(null);
-				tpNomeProduto.setText(null);
-				tpPrecoProduto.setText(null);
-				tpQuantEstoqueProduto.setText(null);
-				tpDisponibilidadeProduto.setText(null);
-				prod.setExibiuProdutos(false);
+				Object[] opcoes = {"Sim", "Não"};
+				int slc = JOptionPane.showOptionDialog(null, "Você realmente deseja limpar a lista de produtos cadastrados?\nAVISO: Esta ação não poderá ser desfeita.", "Confirmação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcoes, opcoes[0]);
+				if(slc == 0) {
+					tpIdProduto.setText(null);
+					tpNomeProduto.setText(null);
+					tpPrecoProduto.setText(null);
+					tpQuantEstoqueProduto.setText(null);
+					tpDisponibilidadeProduto.setText(null);
+					prod.setExibiuProdutos(false);
+					prod.getListaProdutos().clear();
+					prod.setIdProduto(0);
+					prod.setExibiuProdutos(false);
+					prod.setHaProdutos(false);
+					prod.setPredefCarregado(false);
+					tpQuantProdutosSistema.setText("Produtos cadastrados: " + prod.getIdProduto() + "/20");
+				}
 			}
 		});
 		
@@ -239,7 +262,7 @@ public class ViewGerenteProdutos extends JFrame {
 		lblCopyright.setBounds(195, 571, 272, 19);
 		pFundoListaProdutos.add(lblCopyright);
 		
-		JLabel lblVersao = new JLabel(ViewMain.VERSAO + ViewMain.BUILD + " (18/06/23)");
+		JLabel lblVersao = new JLabel(vMain.VERSAO + vMain.BUILD_INFOS);
 		lblVersao.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVersao.setForeground(Color.WHITE);
 		lblVersao.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 8));
@@ -248,8 +271,6 @@ public class ViewGerenteProdutos extends JFrame {
 	}
 	
 	public void carregarPredef() {
-		if(prod.isPredefCarregado() == false) {
-			
 			prod.setIdProduto(prod.getIdProduto() + 1);
 			Produto preset01 = new Produto(prod.getIdProduto(), "Arroz", 6.50, 15);
 			prod.setIdProduto(prod.getIdProduto() + 1);
@@ -270,26 +291,15 @@ public class ViewGerenteProdutos extends JFrame {
 			Produto preset09 = new Produto(prod.getIdProduto(), "Peito de Frango", 13.99, 5);
 			prod.setIdProduto(prod.getIdProduto() + 1);
 			Produto preset10 = new Produto(prod.getIdProduto(), "Costela Bovina", 27.49, 5);
-			
-			prod.adicionarProduto(preset01);
-			prod.adicionarProduto(preset02);
-			prod.adicionarProduto(preset03);
-			prod.adicionarProduto(preset04);
-			prod.adicionarProduto(preset05);
-			prod.adicionarProduto(preset06);
-			prod.adicionarProduto(preset07);
-			prod.adicionarProduto(preset08);
-			prod.adicionarProduto(preset09);
-			prod.adicionarProduto(preset10);
-			
+			prod.adicionarProduto(preset01); prod.adicionarProduto(preset02);
+			prod.adicionarProduto(preset03); prod.adicionarProduto(preset04);
+			prod.adicionarProduto(preset05); prod.adicionarProduto(preset06);
+			prod.adicionarProduto(preset07); prod.adicionarProduto(preset08);
+			prod.adicionarProduto(preset09); prod.adicionarProduto(preset10);
 			prod.setExibiuProdutos(false);
 			prod.setHaProdutos(true);
 			prod.setPredefCarregado(true);
-			
 			JOptionPane.showMessageDialog(null, "Pré-definição de produtos carregada com sucesso!", "Êxito", JOptionPane.INFORMATION_MESSAGE);
-		} else {
-			JOptionPane.showMessageDialog(null, "Pré-definição de produtos já carregada!", "Impossível prosseguir", JOptionPane.ERROR_MESSAGE);
-		}
 	}
 	
 	public int prodID() {int idProd = prod.getIdProduto(); return idProd;}
